@@ -18,6 +18,9 @@ from django.contrib import admin
 from django.urls import path
 from accounts.views import *
 from user_profile.views import *
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     # account app urls
@@ -36,3 +39,5 @@ urlpatterns = [
     # path('uneducated_profile/', uneducated_profile, name='uneducated_profile'),
     
 ]
+if settings.DEBUG:
+    urlpatterns+=static(settings.MEDIA_URL,document_root =settings.MEDIA_ROOT)
