@@ -10,7 +10,15 @@ class Education(models.Model):
     total_marks=models.FloatField(null=True, blank= True)
     obtain_marks=models.FloatField(null=True, blank=True)
     percentage=models.FloatField(null=True, blank=True)
-class Category(models.Model):
+    def __str__(self) -> str:
+        return f"({self.user}) Education "
+class EducationalCategory(models.Model):
+    category=models.CharField(max_length=100,null=True)
+    def __str__(self)->str:
+        return self.category
+    class Meta:
+        ordering=['category']
+class UneducationalCategory(models.Model):
     category=models.CharField(max_length=100,null=True)
     def __str__(self)->str:
         return self.category
@@ -21,7 +29,7 @@ class EducatedProfile(models.Model):
     user=models.OneToOneField(User, on_delete=models.CASCADE, related_name='educated_user',null=True,blank=True)
     education=models.ManyToManyField(Education, related_name='provider_education', blank=True)
     skills=models.TextField(null=True)
-    category=models.ForeignKey(Category, on_delete=models.CASCADE, related_name='educated_category',null=True)
+    category=models.ForeignKey(EducationalCategory, on_delete=models.CASCADE, related_name='educated_category',null=True)
     experience=models.FloatField(default=0.0)
     github=models.URLField(null=True)
     linkdin=models.URLField(null=True)
@@ -31,7 +39,7 @@ class EducatedProfile(models.Model):
 class UneducatedProfile(models.Model):
     user=models.OneToOneField(User, on_delete=models.CASCADE, related_name='uneducated_user',null=True,blank=True)    
     skills=models.TextField(null=True)
-    category=models.ForeignKey(Category, on_delete=models.CASCADE, related_name='uneducated_category',null=True)
+    category=models.ForeignKey(UneducationalCategory, on_delete=models.CASCADE, related_name='uneducated_category',null=True)
     experience=models.FloatField(default=0.0)
     description=models.TextField(null=True)
     def __str__(self) -> str:
