@@ -21,6 +21,17 @@ def signup_view(request):
             try:
                 with transaction.atomic():
                     user=User.objects.create_user(
+                        first_name=form.cleaned_data['first_name'],
+                        last_name=form.cleaned_data['last_name'],
+                        father_name=form.cleaned_data['father_name'],
+                        cnic=form.cleaned_data['cnic'],
+                        address=form.cleaned_data['address'],
+                        district=form.cleaned_data['district'],
+                        phone_number=form.cleaned_data['phone_number'],
+                        bio=form.cleaned_data['bio'],
+                        profile_image=form.cleaned_data['profile_image'],
+                        cnic_front=form.cleaned_data['cnic_front'],
+                        cnic_back=form.cleaned_data['cnic_back'],
                         email=email,
                         password=password
                     )
